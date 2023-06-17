@@ -17,7 +17,7 @@ print(X.shape)
 
 # can also use y=dataset['Car Purchasing Amount']
 y = dataset.iloc[:, -1].values
-print(y.shape)
+print(y.shape)   # y has 500 rows and 1 column
 # y=y.reshape(-1,1)
 
 
@@ -28,21 +28,24 @@ print(y.shape)
 # VISUALISING THE DATASET
 # print(sns.pairplot(dataset))  #plotting all columns against one another
 
+
 # MIN MAX SCALING
 from sklearn.preprocessing import MinMaxScaler
 scaler= MinMaxScaler()
 X_scaled=scaler.fit_transform(X)
+y=y.values.reshape(-1,1)    # reshaping y as scaling does not work on a single column dataset   
+y_scaled=scaler.fit_transform(y)
 
 
 # DIVIDING IN TRAINING AND TEST SET
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=0)
+    X_scaled, y_scaled, test_size=0.2, random_state=0)
 
 
-
+# BUILDING THE MODEL
 ann = tf.keras.models.Sequential()
-ann.add(tf.keras.layers.Dense(units=25, activation='relu'))
-ann.add(tf.keras.layers.Dense(units=25, activation='relu'))
+ann.add(tf.keras.layers.Dense(units=25,input_dim = 5, activation='relu'))   # input_dim is input dimension (age, gender, etc...)
+ann.add(tf.keras.layers.Dense(units=25, activation='relu'))    # input_dim is default 25 as we are building the model in sequential order.
 ann.add(tf.keras.layers.Dense(units=1))
 
 ann.compile(optimizer='adam', loss='mean_squared_error', metrics=['accuracy'])
