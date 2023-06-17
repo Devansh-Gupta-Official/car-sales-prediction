@@ -29,12 +29,6 @@ print(y.shape)
 # VISULAISING THE DATASET
 # print(sns.pairplot(dataset))
 
-
-# FEATURE SCALING
-sc = StandardScaler()
-X_train = sc.fit_transform(X)
-y = sc.fit_transform(y)
-
 # DIVIDING IN TRAINING AND TEST SET
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=0)
@@ -43,12 +37,18 @@ X_train, X_test, y_train, y_test = train_test_split(
 ann = tf.keras.models.Sequential()
 ann.add(tf.keras.layers.Dense(units=25, activation='relu'))
 ann.add(tf.keras.layers.Dense(units=25, activation='relu'))
-ann.add(tf.keras.layers.Dense(units=1, activation='linear'))
+ann.add(tf.keras.layers.Dense(units=1))
 
-ann.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+ann.compile(optimizer='adam', loss='mean_squared_error', metrics=['accuracy'])
 
-ann.fit(X_train, y_train, batch_size=32, epochs=100)
+ann.fit(X_train, y_train, batch_size=32, epochs=500)
 
 answer = ann.predict(X_test)
 answer.reshape(-1, 1)
 print(answer[:, 0])
+np.set_printoptions(precision=2)   #to set no. of digits after decimal to 2
+print(np.concatenate((answer.reshape(len(answer),1), y_test.reshape(len(y_test),1)),1))
+
+# test = np.array([[1,50,50000,10000,600000]])
+test = np.array([[0,44,63000,11500,370000]])
+print(ann.predict(test))
