@@ -48,12 +48,15 @@ ann.add(tf.keras.layers.Dense(units=25,input_dim = 5, activation='relu'))   # in
 ann.add(tf.keras.layers.Dense(units=25, activation='relu'))    # input_dim is default 25 as we are building the model in sequential order.
 ann.add(tf.keras.layers.Dense(units=1, activation='linear'))
 
-ann.compile(optimizer='adam', loss='mean_squared_error', metrics=['accuracy'])
 
+# COMPILING AND RUNNING THE MODEL
+ann.compile(optimizer='adam', loss='mean_squared_error', metrics=['accuracy'])
 ann.fit(X_train, y_train, batch_size=25, epochs=50, verbose=1, validation_split = 0.2)         
 # verbose specifies how much info need to be shown during training
 # validation split divides the training data again to avoid overfitting
 
+
+# PRINTING PREDICTED AND ACTUAL VALUES TOGETHER
 answer = ann.predict(X_test)
 answer.reshape(-1, 1)
 print(answer[:, 0])
@@ -61,6 +64,12 @@ np.set_printoptions(precision=2)   #to set no. of digits after decimal to 2
 print(np.concatenate((answer.reshape(len(answer),1), y_test.reshape(len(y_test),1)),1))
 
 
+# PREDICTING A SINGLE VALUE
 # test = np.array([[1,50,50000,10000,600000]])
 test = np.array([[0,44,63000,11500,370000]])
 print(ann.predict(test))
+
+
+# EVALUATING MODEL PERFORMANCE
+from sklearn.metrics import r2_score
+print(r2_score(y_test,answer))
