@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # can also set encoding as latin
-dataset = pd.read_csv('Car_Purchasing_Data.csv', encoding='ISO-8859-1')
+dataset = pd.read_csv('Car_Purchasing_Data.csv', encoding='ISO-8859-1')   #we have to use the encoding parameter as our data has a lot of special characters like email has @ and . etc.
 
 
 # can also use X = dataset.drop(['Customer Name','Customer e-mail','Country','Car purchase amount'],axis=1)  here axis =1 signifies that we want to drop only the columns entirely not the rows
@@ -25,9 +25,9 @@ print(y.shape)
 # print(dataset.head(5))
 # print(dataset.tail(5))
 
-
 # VISULAISING THE DATASET
 # print(sns.pairplot(dataset))
+
 
 # DIVIDING IN TRAINING AND TEST SET
 X_train, X_test, y_train, y_test = train_test_split(
