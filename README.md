@@ -18,5 +18,13 @@ The dataset used for this project is 'Car_Purchasing_Data.csv', containing vario
 ## **Usage**
 1. Clone the repository to your local environment:
    ```
-   git clone https://github.com/your-username/Car-Purchase-Prediction.git
+   git clone https://github.com/Devansh-Gupta-Official/car_sales_prediction.git
    ```
+2. Ensure the necessary dependencies are installed:
+   ```
+   pip install pandas numpy tensorflow scikit-learn matplotlib seaborn
+   ```
+3. Run the ann.py script in your Python environment. Adjust hyperparameters, model architecture, or input features as needed for experimentation.
+
+## **Acknowledgments**
+The dataset used in this project is sourced from **Kaggle**.
